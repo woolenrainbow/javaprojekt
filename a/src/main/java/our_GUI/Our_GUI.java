@@ -1,6 +1,7 @@
 package our_GUI;
 import java.math.BigDecimal;
 import filereading.*;
+import FileReader.*;
 
 public interface Our_GUI {
 	public void GUI_init();
