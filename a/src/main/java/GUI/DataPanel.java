@@ -39,6 +39,19 @@ public class DataPanel extends JPanel implements Callable {
 		Path path = Paths.get(messenger.getMessage());
 		FileReader reader = new FileReader(path, dataStorage);
 		reader.get();
+		ArrayList my_Array = dataStorage.getData();
+		//ArrayList my_Array = new ArrayList();
+		//for(int i = 0; i<1203; i++)
+		//	 my_Array.add(i);
+		//int w = this.panel.getWidth();
+		int asize = my_Array.size();
+		panel.setLayout(new GridLayout(Math.floorDiv(asize, 5) + 1, 5, 50, 0));
+		for (int i = 0; i < asize; i++)
+		{
+			JLabel label = new JLabel(my_Array.get(i).toString());
+			label.setPreferredSize(new Dimension(40,20));
+			panel.add(label);
+		}
 		/*System.out.println(panel.toString());
 		if(data.size() > 0 &&  data.get(0).size() > 0) {
 			panel.setLayout(new GridLayout(data.size(), data.get(0).size()));
