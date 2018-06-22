@@ -16,7 +16,6 @@ public class DataStorage {
 		//teraz je sortujesz
 		//aktualnie program nic nie moze wyswietlic bo przerabiamy rzeczy i wyswietlanie jeszcze nie dziala :)
 		//POWODZENIA!!!
-		
 	}
 	public ArrayList<BigDecimal> getData()
 	{
