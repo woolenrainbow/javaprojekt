@@ -20,6 +20,7 @@ public class DataPanel extends JPanel implements Callable {
 	private JPanel panel = null;
 	private Messenger messenger = null;
 	private DataStorage dataStorage = null;
+	private ArrayList labels = null
 	public DataPanel(int width, int height, Messenger messenger) {	
 		dataStorage = new DataStorage();
 		this.messenger = messenger;
@@ -44,6 +45,7 @@ public class DataPanel extends JPanel implements Callable {
 		//for(int i = 0; i<1203; i++)
 		//	 my_Array.add(i);
 		//int w = this.panel.getWidth();
+		
 		int asize = my_Array.size();
 		panel.setLayout(new GridLayout(Math.floorDiv(asize, 5) + 1, 5, 50, 0));
 		for (int i = 0; i < asize; i++)
@@ -51,6 +53,7 @@ public class DataPanel extends JPanel implements Callable {
 			JLabel label = new JLabel(my_Array.get(i).toString());
 			label.setPreferredSize(new Dimension(40,20));
 			panel.add(label);
+			labels.add(label);
 		}
 		/*System.out.println(panel.toString());
 		if(data.size() > 0 &&  data.get(0).size() > 0) {
