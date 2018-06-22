@@ -20,7 +20,7 @@ public class DataPanel extends JPanel implements Callable<Void> {
 	private JPanel panel = null;
 	private Messenger messenger = null;
 	private DataStorage dataStorage = null;
-	private ArrayList<JLabel> labels = null;
+	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	public DataPanel(int width, int height, Messenger messenger, DataStorage data) {	
 		dataStorage = data;
 		this.messenger = messenger;
