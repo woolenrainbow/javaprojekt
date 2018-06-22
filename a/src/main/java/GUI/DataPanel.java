@@ -15,14 +15,14 @@ import javax.swing.JScrollPane;
 import dataStorage.DataStorage;
 import FileReader.FileReader;
 
-public class DataPanel extends JPanel implements Callable {
+public class DataPanel extends JPanel implements Callable<Void> {
 	//ArrayList<ArrayList<BigDecimal>> data = null;
 	private JPanel panel = null;
 	private Messenger messenger = null;
 	private DataStorage dataStorage = null;
-	private ArrayList labels = null
-	public DataPanel(int width, int height, Messenger messenger) {	
-		dataStorage = new DataStorage();
+	private ArrayList<JLabel> labels = null;
+	public DataPanel(int width, int height, Messenger messenger, DataStorage data) {	
+		dataStorage = data;
 		this.messenger = messenger;
 		panel = new JPanel();
 		//panel.add(new JLabel("asd"));
@@ -35,12 +35,12 @@ public class DataPanel extends JPanel implements Callable {
 		//panel.add(new JLabel("asd"));
 	}
 	@Override
-	public Object call() throws Exception {
+	public Void call() throws Exception {
 		// TODO Auto-generated method stub
 		Path path = Paths.get(messenger.getMessage());
 		FileReader reader = new FileReader(path, dataStorage);
 		reader.get();
-		ArrayList my_Array = dataStorage.getData();
+		ArrayList<BigDecimal> my_Array = dataStorage.getData();
 		//ArrayList my_Array = new ArrayList();
 		//for(int i = 0; i<1203; i++)
 		//	 my_Array.add(i);

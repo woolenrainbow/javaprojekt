@@ -9,17 +9,34 @@ import java.util.concurrent.Callable;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class MenuPanel extends JPanel{
-	private Callable<DataPanel> fun;
-	public MenuPanel(int width, int height, Callable<DataPanel> fun, Messenger messenger) {
-		this.fun = fun;
+	private JTextField fromTextField = null;
+	private JTextField toTextField = null;
+	private int WIDTH = 0;
+	private int HEIGHT = 0;
+	public MenuPanel(int width, int height, Callable<Void> fun, Messenger messenger) {
+		this.WIDTH = width / 8;
+		this.HEIGHT = height / 3;
 		setPreferredSize(new Dimension(width, height));
 		FlowLayout layout = new FlowLayout(FlowLayout.RIGHT);
 		setLayout(layout);
+		fromTextField = new JTextField();
+		toTextField = new JTextField();
+		fromTextField.setPreferredSize(new Dimension(this.WIDTH, this.HEIGHT));
+		toTextField.setPreferredSize(new Dimension(this.WIDTH, this.HEIGHT));
+		add(new JLabel("Od: "));
+		add(fromTextField);
+		add(new JLabel("Do: "));
+		add(toTextField);
+		JButton searchBtn = new JButton("Szukaj");
+		searchBtn.setPreferredSize(new Dimension(this.WIDTH, this.HEIGHT));
+		add(searchBtn);
 		JButton getFileBtn = new JButton("Wybierz plik");
-		getFileBtn.setPreferredSize(new Dimension(width / 7, height / 3));
+		getFileBtn.setPreferredSize(new Dimension(this.WIDTH, this.HEIGHT));
 		getFileBtn.addActionListener(new ActionListener() {
 			
 			@Override
