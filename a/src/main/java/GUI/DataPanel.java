@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.math.BigDecimal;
@@ -21,7 +20,7 @@ public class DataPanel extends JPanel implements Callable<Void> {
 	private JPanel panel = null;
 	private Messenger messenger = null;
 	private DataStorage dataStorage = null;
-	LabelsCon labels = new LabelsCon();
+	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	public DataPanel(int width, int height, Messenger messenger, DataStorage data) {	
 		dataStorage = data;
 		this.messenger = messenger;
@@ -54,7 +53,7 @@ public class DataPanel extends JPanel implements Callable<Void> {
 			JLabel label = new JLabel(my_Array.get(i).toString());
 			label.setPreferredSize(new Dimension(40,20));
 			panel.add(label);
-			labels.addLabel(label);
+			labels.add(label);
 		}
 		/*System.out.println(panel.toString());
 		if(data.size() > 0 &&  data.get(0).size() > 0) {
@@ -69,18 +68,8 @@ public class DataPanel extends JPanel implements Callable<Void> {
 		} else {
 			;
 		}*/
-		//searchdata(new BigDecimal(100), new BigDecimal(200));
 		panel.revalidate();		
 		return null;
 	}
 	
-	public void searchdata(BigDecimal a, BigDecimal b) {
-		for(LabelsIterator iter = this.labels.getLabel(); iter.hasnext();) {
-			JLabel curr_label = iter.next();
-			BigDecimal value = new BigDecimal(curr_label.getText());
-			if (value.compareTo(a) != -1 && value.compareTo(b) != 1)
-				curr_label.setOpaque(true);
-				curr_label.setBackground(Color.PINK);
-		}
-	}
 }
