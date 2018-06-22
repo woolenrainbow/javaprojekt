@@ -6,12 +6,16 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import dataStorage.DataStorage;
+
 public class FileReader {
 	private static int len = 512;
 	private ArrayList<ArrayList<BigDecimal>> data = null;
 	private ByteBuffer buffer = null;
 	private FileChannel fc = null;
-	public FileReader(Path path) {
+	private DataStorage dataStorage = null;
+	public FileReader(Path path, DataStorage dataStorage) {
+		this.dataStorage = dataStorage;
 		data = new ArrayList<ArrayList<BigDecimal>>();
 		data.add(new ArrayList<BigDecimal>());		
 		try {
@@ -21,7 +25,7 @@ public class FileReader {
 		}
 		buffer = ByteBuffer.allocate(len);
 	}
-	public ArrayList<ArrayList<BigDecimal>> get() {
+	public void get() {
 		StringBuilder sbuilder = new StringBuilder();
 		while(true) {
 			buffer.clear();
@@ -45,7 +49,8 @@ public class FileReader {
 		} catch (IOException e) {
 			System.out.println("Błąd zamykania pliku!");
 		}
-		String [] rows = sbuilder.toString().split("\n");
+		dataStorage.setData(sbuilder.toString());
+		/*String [] rows = sbuilder.toString().split("\n");
 		int currentNumber = 0;
 		for(String r : rows) {
 			r = r.split("\r")[0];
@@ -55,14 +60,14 @@ public class FileReader {
 			}
 			data.add(new ArrayList<BigDecimal>());
 			currentNumber++;
-		}
+		}*/
 		/*for(ArrayList<BigDecimal> i: data) {
 			for(BigDecimal j : i) {
 				System.out.print(j.toString() + " ");
 			}
 			System.out.print("\n");
 		}*/
-		return data;
+		//return data;
 	}
 	
 }

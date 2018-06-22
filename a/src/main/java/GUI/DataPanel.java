@@ -12,13 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import dataStorage.DataStorage;
 import FileReader.FileReader;
 
 public class DataPanel extends JPanel implements Callable {
-	ArrayList<ArrayList<BigDecimal>> data = null;
+	//ArrayList<ArrayList<BigDecimal>> data = null;
 	private JPanel panel = null;
 	private Messenger messenger = null;
+	private DataStorage dataStorage = null;
 	public DataPanel(int width, int height, Messenger messenger) {	
+		dataStorage = new DataStorage();
 		this.messenger = messenger;
 		panel = new JPanel();
 		//panel.add(new JLabel("asd"));
@@ -34,9 +37,9 @@ public class DataPanel extends JPanel implements Callable {
 	public Object call() throws Exception {
 		// TODO Auto-generated method stub
 		Path path = Paths.get(messenger.getMessage());
-		FileReader reader = new FileReader(path);
-		data = reader.get();
-		System.out.println(panel.toString());
+		FileReader reader = new FileReader(path, dataStorage);
+		reader.get();
+		/*System.out.println(panel.toString());
 		if(data.size() > 0 &&  data.get(0).size() > 0) {
 			panel.setLayout(new GridLayout(data.size(), data.get(0).size()));
 			for(ArrayList<BigDecimal> i : data) {
@@ -48,7 +51,7 @@ public class DataPanel extends JPanel implements Callable {
 			}
 		} else {
 			;
-		}
+		}*/
 		panel.revalidate();		
 		return null;
 	}
