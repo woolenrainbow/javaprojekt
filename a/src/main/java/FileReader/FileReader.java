@@ -50,7 +50,7 @@ public class FileReader {
 			System.out.println("Błąd zamykania pliku!");
 		}
 		dataStorage.setData(sbuilder.toString());
-		/*String [] rows = sbuilder.toString().split("\n");
+		/*String [] rows = sbuilder.toString().split("\\s");
 		int currentNumber = 0;
 		for(String r : rows) {
 			r = r.split("\r")[0];

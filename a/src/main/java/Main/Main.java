@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import GUI.*;
+import dataStorage.DataStorage;
 
 public class Main extends JFrame {
 	private static final int DEFAULT_WIDTH = 1200;
@@ -14,7 +15,8 @@ public class Main extends JFrame {
 		setResizable(false);
 		setLayout(new BorderLayout());
 		Messenger messenger = new Messenger();
-		DataPanel dataGrid = new DataPanel(DEFAULT_WIDTH, 9 * DEFAULT_HEIGHT / 10, messenger);
+		DataStorage dataStorage = new DataStorage();
+		DataPanel dataGrid = new DataPanel(DEFAULT_WIDTH, 9 * DEFAULT_HEIGHT / 10, messenger, dataStorage);
         add(new MenuPanel(DEFAULT_WIDTH, DEFAULT_HEIGHT / 10, dataGrid, messenger), BorderLayout.NORTH);
         add(dataGrid, BorderLayout.SOUTH);
         setVisible(true);
@@ -22,7 +24,6 @@ public class Main extends JFrame {
         setLocation(0,0);
         pack();
 	}
-	
 	
 	public static void main(String[] args) {
         EventQueue.invokeLater(()-> {
