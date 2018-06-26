@@ -33,6 +33,20 @@ public class MenuPanel extends JPanel{
 		add(new JLabel("Do: "));
 		add(toTextField);
 		JButton searchBtn = new JButton("Szukaj");
+		searchBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				messenger.setMessage(fromTextField.getText() + " " + toTextField.getText(), Messenger.FIND);
+				try {
+					fun.call();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		searchBtn.setPreferredSize(new Dimension(this.WIDTH, this.HEIGHT));
 		add(searchBtn);
 		JButton getFileBtn = new JButton("Wybierz plik");
@@ -44,7 +58,7 @@ public class MenuPanel extends JPanel{
 				JFileChooser chooser = new JFileChooser();
 				int returnValue = chooser.showOpenDialog(null);
 				if(returnValue == JFileChooser.APPROVE_OPTION) {
-					messenger.setMessage(chooser.getSelectedFile().getPath());
+					messenger.setMessage(chooser.getSelectedFile().getPath(), Messenger.READ);
 					try {
 						
 						fun.call();

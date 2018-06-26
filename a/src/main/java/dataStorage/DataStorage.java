@@ -2,6 +2,8 @@ package dataStorage;
 import java.math.BigDecimal;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class DataStorage {
 	private ArrayList<BigDecimal> data = new ArrayList<BigDecimal>();
 	public DataStorage()
@@ -14,7 +16,7 @@ public class DataStorage {
 		
 		for (String i: tokens)
 		{
-	        this.data.add(new BigDecimal(i));		
+			this.data.add(new BigDecimal(i));
 		}
 		
 		Collections.sort(this.data);
@@ -26,8 +28,13 @@ public class DataStorage {
 		//aktualnie program nic nie moze wyswietlic bo przerabiamy rzeczy i wyswietlanie jeszcze nie dziala :)
 		//POWODZENIA!!!
 	}
+	
 	public ArrayList<BigDecimal> getData()
 	{
 		return data;
+	}
+	
+	public void clear() {
+		data.clear();
 	}
 }
