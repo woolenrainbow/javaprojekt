@@ -76,9 +76,8 @@ public class DataPanel extends JPanel implements Callable<Void> {
 		for(LabelsIterator iter = this.labels.getLabel(); iter.hasnext();) {
 			JLabel curr_label = iter.next();
 			BigDecimal value = new BigDecimal(curr_label.getText());
-			curr_label.setOpaque(true);
-			curr_label.setBackground(Color.lightGray);
 			if (value.compareTo(a) != -1 && value.compareTo(b) != 1)
+				curr_label.setOpaque(true);
 				curr_label.setBackground(Color.PINK);
 		}
 	}
