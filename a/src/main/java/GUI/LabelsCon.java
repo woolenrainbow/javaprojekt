@@ -8,6 +8,9 @@ public class LabelsCon implements LabelsContainer{
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	
 	
+	public void removeLabels() {
+		labels.clear();
+	}
 	public void addLabel(JLabel l) {
 		this.labels.add(l);
 	}
