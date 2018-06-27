@@ -5,6 +5,7 @@ public class Messenger {
 	public static int READ = 1;
 	public static int FIND = 2;
 	public static int SET_RANGE = 3;
+	public static int CLEAR = 4;
 	private String message = null;
 	private int code;
 	public Messenger() {

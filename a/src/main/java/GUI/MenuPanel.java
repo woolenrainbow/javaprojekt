@@ -18,7 +18,7 @@ public class MenuPanel extends JPanel{
 	private JTextField toTextField = null;
 	private int WIDTH = 0;
 	private int HEIGHT = 0;
-	public MenuPanel(int width, int height, Callable<Void> fun, Messenger messenger) {
+	public MenuPanel(int width, int height, Callable<Void> dataPanel, Callable<Void> infoPanel, Messenger messenger, Messenger infoMessenger) {
 		this.WIDTH = width / 8;
 		this.HEIGHT = (int) (height / 1.5);
 		setPreferredSize(new Dimension(width, height));
@@ -31,7 +31,7 @@ public class MenuPanel extends JPanel{
 		add(new JLabel("Od: "));
 		add(fromTextField);
 		add(new JLabel("Do: "));
-		add(toTextField);
+		add(toTextField);		
 		JButton searchBtn = new JButton("Szukaj");
 		searchBtn.addActionListener(new ActionListener() {
 			
@@ -39,8 +39,10 @@ public class MenuPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				messenger.setMessage(fromTextField.getText() + " " + toTextField.getText(), Messenger.FIND);
+				infoMessenger.setMessage(fromTextField.getText() + "/" + toTextField.getText(), Messenger.SET_RANGE);
 				try {
-					fun.call();
+					dataPanel.call();
+					infoPanel.call();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -49,6 +51,23 @@ public class MenuPanel extends JPanel{
 		});
 		searchBtn.setPreferredSize(new Dimension(this.WIDTH, this.HEIGHT));
 		add(searchBtn);
+		JButton clearBtn = new JButton("Wyczyść");
+		clearBtn.setPreferredSize(new Dimension(this.WIDTH, this.HEIGHT));
+		clearBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				infoMessenger.setMessage("brak wartości" + "/" + "brak wartości", Messenger.CLEAR);
+				try {
+					infoPanel.call();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		add(clearBtn);
 		JButton getFileBtn = new JButton("Wybierz plik");
 		getFileBtn.setPreferredSize(new Dimension(this.WIDTH, this.HEIGHT));
 		getFileBtn.addActionListener(new ActionListener() {
@@ -61,7 +80,7 @@ public class MenuPanel extends JPanel{
 					messenger.setMessage(chooser.getSelectedFile().getPath(), Messenger.READ);
 					try {
 						
-						fun.call();
+						dataPanel.call();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
