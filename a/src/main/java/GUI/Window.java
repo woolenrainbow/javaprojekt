@@ -22,6 +22,6 @@ public class Window extends JFrame{
 		setVisible(true);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocation(0,0);
-		pack();
+		//pack();
 	}
 }
