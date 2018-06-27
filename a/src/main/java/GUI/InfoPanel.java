@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.util.concurrent.Callable;
 
 import javax.swing.BorderFactory;
@@ -17,8 +18,8 @@ import net.java.balloontip.styles.EdgedBalloonStyle;
 public class InfoPanel extends JPanel implements Callable<Void> {
 	private JLabel fromLab = null;
 	private JLabel toLab = null;
-	private JLabel fromInfo = null;
-	private JLabel toInfo = null;
+	private BalloonTip toLabBalloon = null;
+	private BalloonTip fromLabBalloon = null;
 	private int WIDTH = 0;
 	private int HEIGHT = 0;
 	private Messenger messenger = null;
@@ -29,20 +30,19 @@ public class InfoPanel extends JPanel implements Callable<Void> {
 		setPreferredSize(new Dimension(width, height));
 		FlowLayout layout = new FlowLayout(FlowLayout.RIGHT);
 		setLayout(layout);
-		fromLab = new JLabel("Od: ");
+		fromLab = new JLabel("Od: brak wartości");
 		fromLab.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		fromLab.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		fromLab.setOpaque(true);
 		fromLab.setBackground(Color.LIGHT_GRAY);
-		toLab = new JLabel("Do: ");
+		toLab = new JLabel("Do: brak wartości");
 		toLab.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		toLab.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		toLab.setOpaque(true);
 		toLab.setBackground(Color.LIGHT_GRAY);
 		add(fromLab);
 		add(toLab);
-		fromInfo = new JLabel("brak wartości");
-		BalloonTip fromLabBalloon = new BalloonTip(fromLab, fromInfo, new EdgedBalloonStyle(Color.WHITE, Color.BLUE), false);
+		fromLabBalloon = new BalloonTip(fromLab, "brak wartości", new EdgedBalloonStyle(Color.WHITE, Color.BLUE), false);
 		fromLabBalloon.setVisible(false);
 		fromLab.addMouseListener(new MouseAdapter() {
 			@Override
@@ -56,8 +56,7 @@ public class InfoPanel extends JPanel implements Callable<Void> {
 				fromLabBalloon.setVisible(false);
 			    }
 		});
-		toInfo = new JLabel("brak wartości");
-		BalloonTip toLabBalloon = new BalloonTip(toLab, toInfo, new EdgedBalloonStyle(Color.WHITE, Color.BLUE), false);
+		toLabBalloon = new BalloonTip(toLab, "brak wartości", new EdgedBalloonStyle(Color.WHITE, Color.BLUE), false);
 		toLabBalloon.setVisible(false);
 		toLab.addMouseListener(new MouseAdapter() {
 			@Override
@@ -75,11 +74,24 @@ public class InfoPanel extends JPanel implements Callable<Void> {
 	@Override
 	public Void call() throws Exception {
 		// TODO Auto-generated method stub
-		if(messenger.getCode() == Messenger.SET_RANGE) {
-			fromLab.setText("Od: " + messenger.getMessage().split(" ")[0]);
-			fromInfo.setText(messenger.getMessage().split(" ")[0]);
-			toLab.setText("Do: " + messenger.getMessage().split(" ")[1]);
-			toInfo.setText(messenger.getMessage().split(" ")[1]);
+		if(messenger.getCode() == Messenger.SET_RANGE || messenger.getCode() == Messenger.CLEAR) {
+			if(messenger.getCode() != Messenger.CLEAR) {
+				try {
+					new BigDecimal(messenger.getMessage().split("/")[0]);
+					new BigDecimal(messenger.getMessage().split("/")[1]);
+				}
+				catch(Exception e1) {
+					return null;
+				}
+			}
+			fromLab.setText("Od: " + messenger.getMessage().split("/")[0]);
+			fromLabBalloon.revalidate();
+			fromLabBalloon.repaint();
+			fromLabBalloon.setTextContents(messenger.getMessage().split("/")[0]);
+			toLab.setText("Do: " + messenger.getMessage().split("/")[1]);
+			toLabBalloon.revalidate();
+			toLabBalloon.repaint();
+			toLabBalloon.setTextContents(messenger.getMessage().split("/")[1]);
 		}
 		return null;
 	} 

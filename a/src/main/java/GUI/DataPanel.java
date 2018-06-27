@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 
 import dataStorage.DataStorage;
 import net.java.balloontip.BalloonTip;
@@ -33,11 +34,17 @@ public class DataPanel extends JPanel implements Callable<Void> {
 	private LabelsCon labels = new LabelsCon();
 	private int WIDTH = 0;
 	private int HEIGHT = 0;
-	public DataPanel(int width, int height, Messenger messenger, DataStorage data) {
+	private boolean whichValue = true;
+	private JLabel fromLab = null;
+	private Callable<Void> infoPanel = null;
+	private Messenger infoMessenger = null;
+	public DataPanel(int width, int height, Callable<Void> infoPanel, Messenger messenger, Messenger infoMessenger, DataStorage data) {
 		WIDTH = width / 5;
 		HEIGHT = height / 30;
 		dataStorage = data;
 		this.messenger = messenger;
+		this.infoPanel = infoPanel;
+		this.infoMessenger = infoMessenger;
 		panel = new JPanel();
 		//panel.add(new JLabel("asd"));
 		//panel.setBackground(new Color(1));
@@ -92,6 +99,30 @@ public class DataPanel extends JPanel implements Callable<Void> {
 					public void mouseExited(MouseEvent e) {
 					       balloon.setVisible(false);
 					    }
+				});
+				label.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						if(whichValue) {
+							fromLab = (JLabel) e.getSource();
+							fromLab.setOpaque(true);
+							fromLab.setBorder(BorderFactory.createRaisedBevelBorder());
+							fromLab.repaint();
+							whichValue = false;
+						} else {
+							fromLab.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+							JLabel toLab = (JLabel) e.getSource();
+							whichValue = true;
+							infoMessenger.setMessage(fromLab.getText() + "/" + toLab.getText(), Messenger.SET_RANGE);
+							try {
+								infoPanel.call();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							searchdata(new BigDecimal(fromLab.getText()), new BigDecimal(toLab.getText()));
+						}
+					}
 				});
 				label.setPreferredSize(new Dimension(40,20));
 				panel.add(label);
