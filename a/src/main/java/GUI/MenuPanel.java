@@ -37,14 +37,12 @@ public class MenuPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				messenger.setMessage(fromTextField.getText() + " " + toTextField.getText(), Messenger.FIND);
 				infoMessenger.setMessage(fromTextField.getText() + "/" + toTextField.getText(), Messenger.SET_RANGE);
 				try {
 					dataPanel.call();
 					infoPanel.call();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -57,12 +55,12 @@ public class MenuPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				messenger.setMessage("", Messenger.CLEAR);
 				infoMessenger.setMessage("brak wartości" + "/" + "brak wartości", Messenger.CLEAR);
 				try {
 					infoPanel.call();
+					dataPanel.call();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -82,16 +80,13 @@ public class MenuPanel extends JPanel{
 						
 						dataPanel.call();
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
-				// TODO Auto-generated method stub
 				
 			}
 		});
 		add(getFileBtn);
 		
-		//chooser.setCurrentDirectory(new java.io.File("."));
 	}
 }

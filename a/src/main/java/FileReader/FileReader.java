@@ -50,24 +50,6 @@ public class FileReader {
 			System.out.println("Błąd zamykania pliku!");
 		}
 		dataStorage.setData(sbuilder.toString());
-		/*String [] rows = sbuilder.toString().split("\\s");
-		int currentNumber = 0;
-		for(String r : rows) {
-			r = r.split("\r")[0];
-			String [] numbers = r.split(" ");
-			for(String n: numbers) {
-				data.get(currentNumber).add(new BigDecimal(n));
-			}
-			data.add(new ArrayList<BigDecimal>());
-			currentNumber++;
-		}*/
-		/*for(ArrayList<BigDecimal> i: data) {
-			for(BigDecimal j : i) {
-				System.out.print(j.toString() + " ");
-			}
-			System.out.print("\n");
-		}*/
-		//return data;
 	}
 	
 }

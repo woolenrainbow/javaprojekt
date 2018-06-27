@@ -73,7 +73,6 @@ public class InfoPanel extends JPanel implements Callable<Void> {
 	}
 	@Override
 	public Void call() throws Exception {
-		// TODO Auto-generated method stub
 		if(messenger.getCode() == Messenger.SET_RANGE || messenger.getCode() == Messenger.CLEAR) {
 			if(messenger.getCode() != Messenger.CLEAR) {
 				try {
