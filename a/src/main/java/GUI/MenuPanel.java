@@ -20,7 +20,7 @@ public class MenuPanel extends JPanel{
 	private int HEIGHT = 0;
 	public MenuPanel(int width, int height, Callable<Void> fun, Messenger messenger) {
 		this.WIDTH = width / 8;
-		this.HEIGHT = height / 3;
+		this.HEIGHT = (int) (height / 1.5);
 		setPreferredSize(new Dimension(width, height));
 		FlowLayout layout = new FlowLayout(FlowLayout.RIGHT);
 		setLayout(layout);
